@@ -1,0 +1,191 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <!-- Page Header -->
+  <div class="row mb-5">
+    <div class="col-12 text-start">
+      <h2 class="fw-bold text-dark mb-2">
+        <i class="bi bi-bag-check text-success me-2"></i>
+        My Orders
+      </h2>
+      <div class="divider ms-0"></div>
+    </div>
+  </div>
+
+  <!-- Orders Grid -->
+  <div class="row g-4" *ngIf="orders && orders.length > 0">
+    <ng-container *ngFor="let order of orders">
+      <ng-container *ngFor="let product of order.products; let i = index">
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+          <div class="card order-card h-100 shadow-sm border-0 overflow-hidden">
+            <!-- Order Status Badge -->
+            <div class="position-absolute top-0 end-0 m-3" style="z-index: 2;">
+              <span class="badge px-3 py-2 rounded-pill fs-7" [ngClass]="{
+                  'bg-warning text-dark': product.orderStatus === 'Pending',
+                  'bg-danger': product.orderStatus === 'Cancelled',
+                  'bg-success': product.orderStatus === 'Completed'
+                }">
+                <i [ngClass]="{
+                    'bi bi-clock-history me-1': product.orderStatus === 'Pending',
+                    'bi bi-x-circle me-1': product.orderStatus === 'Cancelled',
+                    'bi bi-check-circle me-1': product.orderStatus === 'Completed'
+                  }"></i>
+                {{ product.orderStatus }}
+              </span>
+            </div>
+
+            <!-- Product Image Section -->
+            <div class="card-img-wrapper position-relative">
+              <img [src]="product.imageUrl" [alt]="product.name" class="product-img"/>
+              <div class="image-overlay" (click)="goToProduct(product.productId)" style="cursor: pointer;">
+                <div class="overlay-content">
+                  <i class="bi bi-eye text-white fs-4"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body p-4">
+              <!-- Product Name -->
+              <h5 class="card-title text-center mb-3 fw-bold text-dark">
+                {{ product.name }}
+              </h5>
+
+              <!-- Order Details -->
+              <div class="order-details">
+                <!-- Total Amount -->
+                <div class="detail-row mb-3">
+                  <div class="detail-label">
+                    <i class="bi bi-currency-rupee me-2"></i>
+                    <span>Total Amount</span>
+                  </div>
+                  <div class="detail-value fw-bold text-success">
+                    {{ product.price * product.quantity | currency: 'INR'}}
+                  </div>
+                </div>
+                <!-- Delivery Address -->
+                <div class="detail-row">
+                  <div class="detail-label">
+                    <i class="bi bi-geo-alt me-2"></i>
+                    <span>Delivery Address</span>
+                  </div>
+
+                  <div class="detail-value">
+                    <small class="text-muted">{{ order.deliveryAddress }}</small>
+                  </div>
+                </div>
+
+                <!-- Order Date -->
+                <div class="detail-row">
+                  <div class="detail-label">
+                    <i class="bi bi-calendar-event text-secondary me-2"></i>
+                    <span>Ordered Date</span>
+                  </div>
+                  <div class="detail-value">
+                    <small class="text-muted">{{ order.orderDate | date:'mediumDate' }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="card-footer bg-light border-0 p-3">
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-danger btn-sm flex-fill" *ngIf="product.orderStatus === 'Pending'" (click)="cancelOrder(order._id, product.variantId)">
+                  <i class="bi bi-trash me-1"></i>
+                  Cancel Order
+                </button>
+
+                <button class="btn btn-outline-warning btn-sm flex-fill" *ngIf="product.orderStatus === 'Completed'"
+                  (click)="openReviewModal(product)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="bi bi-pencil-square"></i>
+                  Review
+                </button>
+
+                <button class="btn btn-outline-success btn-sm flex-fill" (click)="reorder(product)">
+                  <i class="bi bi-arrow-repeat me-1"></i>
+                  Reorder
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <!-- Empty State -->
+  <div class="row justify-content-center" *ngIf="!orders || orders.length === 0">
+    <div class="col-md-8 col-lg-6">
+      <div class="empty-state text-center py-5">
+        <div class="empty-icon mb-4">
+          <i class="bi bi-bag-x text-muted" style="font-size: 5rem;"></i>
+        </div>
+        <h3 class="fw-bold text-dark mb-3">No Orders Yet</h3>
+        <p class="text-muted mb-4 fs-5">
+          You haven't placed any orders yet.<br />
+          Start shopping to see your orders here!
+        </p>
+        <button class="btn btn-primary btn-lg px-4 py-2" routerLink="/home/products">
+          <i class="bi bi-shop me-2"></i>
+          Start Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  #reviewModal>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content fade-in">
+      <div class="modal-header">
+        <h1 class="modal-title bi-5" id="exampleModalLabel">Submit Your Review</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="ReviewForm" (ngSubmit)="onSubmit()">
+          <!-- Rating Input -->
+          <div class="mb-4">
+            <label for="rating" class="form-label">
+              <i class="bi bi-star"></i>
+              Your Rating
+            </label>
+            <input type="number" class="form-control d-none" id="rating" formControlName="rating" min="1" max="5">
+
+            <!-- Interactive Star Rating -->
+            <div class="rating-stars">
+              <span class="star" *ngFor="let star of [1,2,3,4,5]" (click)="setRating(star)"
+                [class.filled]="star <= selectedRating">
+                <i class="bi bi-star-fill" *ngIf="star <= selectedRating"></i>
+                <i class="bi bi-star" *ngIf="star > selectedRating"></i>
+              </span>
+            </div>
+            <div class="rating-label" id="ratingLabel">Click on stars to rate</div>
+
+            <div *ngIf="ReviewForm.get('rating')?.invalid && ReviewForm.get('rating')?.touched" class="text-danger">
+              Rating must be between 1 and 5.
+            </div>
+          </div>
+
+          <!-- Review Text -->
+          <div class="mb-4">
+            <label for="review" class="form-label">
+              <i class="bi bi-pen"></i>
+              Your Review
+            </label>
+            <textarea class="form-control" id="review" formControlName="review" rows="4"
+              placeholder="Share your experience, thoughts, and feedback about this product or service..."
+              maxlength="500"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-submit">
+            <i class="bi bi-paper-plane"></i>
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

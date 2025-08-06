@@ -1,0 +1,85 @@
+<div class="vendor-offcanvas d-flex flex-column h-100 p-3">
+
+    <!-- Header with Avatar -->
+    <div class="vendor-header text-center mb-3 pb-3 border-bottom">
+      <div class="vendor-avatar mb-3">
+        <img 
+          src="../../../assets/user.png" 
+          alt="Vendor Avatar" 
+          style="width: 80px; height: 80px; object-fit: cover;" 
+          class="rounded-circle shadow-sm"
+        />
+      </div>
+      
+      <h5 class="mb-1 fw-bold text-truncate">{{ user.name }}</h5>
+      <small class="text-muted d-block text-truncate">{{ vendor.email }}</small>
+    </div>
+  
+    <!-- Quick Actions -->
+    <div class="quick-actions mb-3">
+      <button mat-stroked-button color="primary" class="w-100 mb-2" [routerLink]="['/vendor/product-list']">
+        <i class="bi bi-box-seam me-2"></i> My Products
+      </button>
+    </div>
+  
+    <!-- Vendor Details -->
+    <div class="vendor-details flex-grow-1 mb-3">
+      <h6 class="fw-semibold mb-3 text-muted">Profile Details</h6>
+      
+      <div class="info-item mb-3">
+        <div class="d-flex align-items-center mb-1">
+          <i class="bi bi-shop me-2 text-primary"></i>
+          <small class="text-muted fw-semibold">Store Name</small>
+        </div>
+        <div class="ms-4">
+          <span class="text-truncate d-block">{{ vendor.storeName }}</span>
+        </div>
+      </div>
+  
+      <div class="info-item mb-3">
+        <div class="d-flex align-items-center mb-1">
+          <i class="bi bi-telephone me-2 text-primary"></i>
+          <small class="text-muted fw-semibold">Phone</small>
+        </div>
+        <div class="ms-4">
+          <span class="text-truncate d-block">{{ vendor.phone }}</span>
+        </div>
+      </div>
+  
+      <div class="info-item mb-3">
+        <div class="d-flex align-items-center mb-1">
+          <i class="bi bi-geo-alt me-2 text-primary"></i>
+          <small class="text-muted fw-semibold">Address</small>
+        </div>
+        <div class="ms-4">
+          <span class="text-break">{{ vendor.address }}</span>
+        </div>
+      </div>
+  
+      <div class="info-item mb-3">
+        <div class="d-flex align-items-center mb-1">
+          <i class="bi bi-calendar-check me-2 text-primary"></i>
+          <small class="text-muted fw-semibold">Member Since</small>
+        </div>
+        <div class="ms-4">
+          <span>{{ vendor.joinedOn | date: 'mediumDate' }}</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Action Buttons -->
+    <div class="vendor-actions mt-auto pt-3 border-top">
+      <div class="d-grid gap-2">
+        <!-- Edit Profile Button -->
+        <button mat-flat-button color="primary" class="py-2" (click)="editProfile()">
+          <i class="bi bi-pencil me-2"></i> Edit Profile
+        </button>
+  
+        <!-- Logout Button -->
+        <button mat-stroked-button color="warn" class="py-2" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-2"></i> Logout
+        </button>
+      </div>
+    </div>
+  
+  </div>

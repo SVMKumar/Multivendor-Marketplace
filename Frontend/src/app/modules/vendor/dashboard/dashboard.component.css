@@ -1,0 +1,182 @@
+
+.dashboard-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+  }
+  
+  .dashboard-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+  }
+  
+  .add-product-btn {
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(63, 81, 181, 0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .add-product-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4) !important;
+  }
+  
+  .stat-card {
+    border-radius: 16px !important;
+    border: none !important;
+    background: white !important;
+    transition: all 0.3s ease !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  }
+  
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-icon mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1;
+  }
+  
+  .stat-change {
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .stat-change .small-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .stat-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+  }
+  
+  .stat-description {
+    color: #6c757d;
+    font-size: 0.8rem;
+  }
+  
+  .chart-card {
+    border-radius: 16px !important;
+    border: none !important;
+    background: white !important;
+    overflow: hidden !important;
+  }
+  
+  .chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+  }
+  
+  .chart-container canvas {
+    max-height: 400px !important;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-title {
+      font-size: 2rem;
+      text-align: center;
+    }
+    
+    .add-product-btn {
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+    }
+    
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .stat-icon mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+    
+    .chart-container {
+      height: 300px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container-fluid {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    .dashboard-title {
+      font-size: 1.75rem;
+    }
+    
+    .stat-card .p-4 {
+      padding: 1.5rem !important;
+    }
+  }
+  
+  /* Material Design Enhancements */
+  .mat-mdc-card {
+    --mdc-elevated-card-container-shape: 16px !important;
+  }
+  
+  .mat-mdc-button {
+    --mdc-protected-button-container-shape: 8px !important;
+  }
+  
+  /* Custom scrollbar for better UX */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }

@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="row" *ngIf="orders && orders.length > 0">
+    <ng-container *ngFor="let order of orders">
+      <ng-container *ngFor="let product of order.products">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card product-card">
+            <img [src]="product.imageUrl"
+                 [alt]="product.name"
+                 class="product-img card-img-top" />
+
+            <div class="card-body">
+              <h5 class="card-title text-center">{{ product.name }}</h5>
+
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Total amount:</th>
+                    <td>{{ product.price * product.quantity | currency }}</td>
+                  </tr>
+                  <tr>
+                    <th>Delivery address:</th>
+                    <td class="text-wrap">{{ order.deliveryAddress }}</td>
+                  </tr>
+                  <tr>
+                    <th>Order date:</th>
+                    <td>{{ order.orderDate | date:'mediumDate' }}</td>
+                  </tr>
+                  <tr>
+                    <th>Status:</th>
+                    <td>
+                      <span 
+                        class="badge"
+                        [ngClass]="{
+                          'bg-warning text-dark': product.orderStatus === 'Pending',
+                          'bg-danger': product.orderStatus === 'Cancelled',
+                          'bg-success': product.orderStatus === 'Completed'
+                        }">
+                        {{ product.orderStatus }}
+                      </span>
+                  </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

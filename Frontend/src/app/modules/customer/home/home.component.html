@@ -1,0 +1,405 @@
+<app-navbar></app-navbar>
+<!-- Carousel -->
+
+<div class="container-fluid">
+  <div class="hero-section" style="margin: 0 30px;">
+    <div class="row g-3">
+      <!-- Main Carousel - Left Side -->
+      <div class="col-lg-8">
+        <div id="mainCarousel" class="carousel slide main-carousel" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+          </div>
+
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../../../../assets/watch_banner.png" alt="Smart Watch Collection">
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <span class="badge bg-warning text-dark px-3 py-2 mb-3" style="font-size: 0.9rem;">Summer Sale
+                    30%</span>
+                  <h2>Smart Watch Collection</h2>
+                  <p>Discover our premium collection of smartwatches with cutting-edge technology</p>
+                  <button class="shop-now-btn" [routerLink]="['/home/products/search/', 'watch']">Shop Now</button>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../../../../assets/laptop_banner.jpg" alt="MacBook Pro M4 Deals">
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <span  class="badge bg-danger px-3 py-2 mb-3" style="font-size: 0.9rem;">Exclusive</span>
+                  <h2>MacBook Pro M4</h2>
+                  <p>Experience power and performance with the latest MacBook Pro M4</p>
+                  <button class="shop-now-btn" [routerLink]="['/home/products/search/', 'macbook']">Shop MacBook Pro</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="carousel-item">
+              <img src="../../../../assets/audio_banner.jpg" alt="Premium Headphones">
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <span class="badge bg-danger px-3 py-2 mb-3" style="font-size: 0.9rem;">Limited Offer</span>
+                  <h2>Premium Audio</h2>
+                  <p>Experience crystal-clear sound with our premium headphone collection</p>
+                  <!-- <button class="shop-now-btn">Explore Now</button> -->
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="../../../../assets/fashion_banner.jpg" alt="Fashion Collection">
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <span class="badge bg-success px-3 py-2 mb-3" style="font-size: 0.9rem;">New Arrival</span>
+                  <h2>Fashion Forward</h2>
+                  <p>Stay ahead of trends with our latest fashion collection</p>
+                  <!-- <button class="shop-now-btn">Shop Collection</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Promotional Grid - Right Side -->
+      <div class="col-lg-4">
+        <div class="promo-grid">
+          <div class="promo-header">
+            <h3>Weekly Best Deals</h3>
+            <p>Save UP to 70%</p>
+          </div>
+
+          <div class="deals-container">
+            <div class="deal-item" *ngFor="let deal of topDeals; let i = index" (click)="goToProduct(deal.productId)">
+              <div class="deal-image">
+                <img [src]="deal.imageUrl" [alt]="deal.name" class="deal-img"/>
+              </div>
+              <div class="deal-info">
+                <div class="deal-title">{{ deal.name }}</div>
+                <div class="deal-price">
+                  <span class="original-price">{{deal.price*1.2 | currency: 'INR'}}</span>
+                  <span class="sale-price">{{deal.price | currency: 'INR'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dashboard-container" style="padding-right: 30px; padding-left: 30px;">
+    <app-category></app-category>
+
+    <!-- Top Deals -->
+    <section style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 60px 0; margin-bottom: 0;">
+      <div class="container">
+        <div class="row align-items-center">
+
+          <!-- Left Side - Featured Product -->
+          <div class="col-lg-5 col-md-6 mb-4 mb-md-0">
+            <div class="featured-product-card p-4"
+              style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; position: relative; overflow: hidden;">
+              <!-- Sale Badge -->
+              <div class="sale-badge mb-3">
+                <span
+                  style="background-color: #ff6b6b; color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;">Summer
+                  Sale 40%</span>
+              </div>
+
+              <!-- Product Title -->
+              <h2 class="text-white fw-bold mb-2" style="font-size: 2.2rem; line-height: 1.2;">Top Deals</h2>
+              <h3 class="text-white mb-4" style="font-size: 1.8rem; font-weight: 400; opacity: 0.9;">Collection</h3>
+
+              <!-- CTA Button -->
+              <button class="btn btn-light fw-semibold px-4 py-2"
+                style="border-radius: 25px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" [routerLink]="['/home/products']">
+                Shop Now
+              </button>
+
+              <!-- Featured Product Image (if you have one) -->
+              <div class="featured-image position-absolute" style="right: -20px; bottom: -20px; opacity: 1; margin-right: 30px; margin-bottom: 17px;">
+                <img src="../../../../assets/nike.png" alt="" height="300px" width="260px" style="z-index: 1;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side - Product Grid -->
+          <div class="col-lg-7 col-md-6">
+
+            <!-- Store Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div class="store-info">
+                <p class="mb-1 text-muted" style="font-size: 14px;">Featured Collection</p>
+                <h4 class="mb-0 fw-bold d-flex align-items-center">
+                  Top Products
+                  <span class="verified-badge ms-2">
+                    <mat-icon>check_circle</mat-icon>
+                  </span>
+
+                </h4>
+                <p class="text-muted mb-0" style="font-size: 13px;">97.3% of Satisfied Customers with Followers</p>
+              </div>
+              <div class="store-actions">
+                <button class="btn btn-danger btn-sm" style="border-radius: 20px; padding: 8px 16px;" [routerLink]="['/home/products']">View All</button>
+              </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="row g-3">
+              <div class="col-6 col-sm-4 col-lg-3" *ngFor="let deal of topDeals; let i = index" (click)="goToProduct(deal.productId)">
+                <div class="product-card bg-white rounded-3 p-3 h-100 shadow-sm position-relative cursor-pointer"
+                  style="transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                  onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'"
+                  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+
+                  <!-- Product Image -->
+                  <a class="product-image-wrapper text-center mb-3" [routerLink]="['/home/productdetails',deal.productId]"
+                    style="height: 120px; display: flex; align-items: center; justify-content: center;">
+                    <img [src]="deal.imageUrl" [alt]="deal.name" class="img-fluid"
+                      style="max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px;">
+                  </a>
+
+                  <!-- Product Info -->
+                  <div class="product-info">
+                    <h6 class="product-name mb-2 fw-semibold"
+                      style="font-size: 13px; line-height: 1.3; color: #333; min-height: 32px;">
+                      {{ deal.name }}
+                    </h6>
+                    <div class="deal-price">
+                      <!-- <span class="original-price">{{deal.price*1.2 | currency : 'INR'}}</span> -->
+                      <span class="sale-price">{{deal.price | currency: 'INR'}}</span>
+                    </div>
+                  </div>
+
+                  <!-- Hover Effect Overlay -->
+                  <div
+                    class="product-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+                    style="background: rgba(0,0,0,0.05); opacity: 0; transition: opacity 0.3s ease; border-radius: 12px;"
+                    onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <br><br>
+    <section class="py-5"
+      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 0; position: relative; overflow: hidden;">
+      <!-- Decorative Background Elements -->
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="opacity: 0.1;">
+        <div class="position-absolute"
+          style="top: 10%; left: 5%; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%; filter: blur(40px);">
+        </div>
+        <div class="position-absolute"
+          style="top: 60%; right: 10%; width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%; filter: blur(60px);">
+        </div>
+      </div>
+
+      <div class="container position-relative">
+        <!-- Enhanced Header -->
+        <div class="text-center mb-5">
+          <div class="d-inline-block mb-3">
+            <span class="badge px-4 py-2"
+              style="background: rgba(255,255,255,0.2); color: white; border-radius: 50px; font-size: 14px; font-weight: 500; backdrop-filter: blur(10px); display: inline-flex; align-items: center; gap: 6px;">
+              <mat-icon style="font-size: 18px;">star</mat-icon>
+              Premium Partners
+            </span>
+
+          </div>
+          <h2 class="fw-bold text-white mb-3"
+            style="font-family: 'Inter', sans-serif; font-size: 2.5rem; text-shadow: 0 2px 20px rgba(0,0,0,0.3);">
+            Top Vendors
+          </h2>
+          <p class="text-white mb-4" style="opacity: 0.9; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            Discover our most trusted and highly-rated vendor partners
+          </p>
+          <div class="mx-auto"
+            style="width: 80px; height: 4px; background: linear-gradient(90deg, #ff6b6b, #ffd93d); border-radius: 2px; box-shadow: 0 2px 10px rgba(255,107,107,0.4);">
+          </div>
+        </div>
+
+        <!-- Vendors Grid -->
+        <div class="row g-4 justify-content-center">
+          <div class="col-10 col-sm-6 col-md-4 col-lg-3" *ngFor="let vendor of topVendors; let i = index">
+            <div class="vendor-card position-relative rounded-4 overflow-hidden shadow-lg cursor-pointer"
+              style="height: 280px; transform: translateY(0); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);"
+              onmouseover="this.style.transform='translateY(-10px) scale(1.02)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.2)'"
+              onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.15)'">
+
+              <!-- Background Image with Parallax Effect -->
+              <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden">
+                <img src="../../../../assets/{{vendorImages[i]}}" [alt]="vendor.name" [routerLink]="['/home/products']"
+                  class="w-100 h-100 object-fit-cover vendor-img"
+                  style="transition: transform 0.4s ease; filter: brightness(0.8) contrast(1.1);"
+                  onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              </div>
+
+              <!-- Multi-layered Overlay -->
+              <div class="position-absolute top-0 start-0 w-100 h-100"
+                style="background: linear-gradient(45deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);">
+              </div>
+
+              <!-- Animated Gradient Overlay -->
+              <div class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
+                style="background: linear-gradient(135deg, rgba(102,126,234,0.8) 0%, rgba(118,75,162,0.8) 100%); transition: opacity 0.3s ease;"
+                onmouseover="this.style.opacity='0.3'" onmouseout="this.style.opacity='0'"></div>
+
+              <!-- Top Badge -->
+              <div class="position-absolute top-0 end-0 m-3 z-3">
+                <div class="badge px-3 py-2"
+                  style="background: rgba(255,255,255,0.9); color: #333; border-radius: 20px; font-weight: 600; font-size: 11px; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                  <i class="bi bi-star-fill text-warning me-1"></i>4.8/5
+                </div>
+              </div>
+
+              <!-- Verified Badge (for premium vendors) -->
+              <div class="position-absolute top-0 start-0 m-3 z-3" *ngIf="i < 2">
+                <div class="badge px-2 py-1"
+                  style="background: linear-gradient(135deg, #00d4aa, #00a085); color: white; border-radius: 15px; font-size: 10px; font-weight: 600;">
+                  <i class="bi bi-patch-check-fill me-1"></i>Verified
+                </div>
+              </div>
+
+              <!-- Main Content -->
+              <div class="position-absolute bottom-0 start-0 w-100 z-2 p-4">
+                <!-- Vendor Info Card -->
+                <div class="vendor-info p-3 rounded-3"
+                  style="background: rgba(255,255,255,0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); transform: translateY(20px); opacity: 0.9; transition: all 0.3s ease;"
+                  onmouseover="this.style.transform='translateY(0)'; this.style.opacity='1'"
+                  onmouseout="this.style.transform='translateY(20px)'; this.style.opacity='0.9'">
+
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h5 class="fw-bold mb-0 text-dark" style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">
+                      {{ vendor.storeName }}
+                    </h5>
+                    <!-- <div class="vendor-avatar rounded-circle overflow-hidden"
+                      style="width: 35px; height: 35px; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                      <img src="../../../../assets/{{vendorImages[i]}}" [alt]="vendor.name"
+                        class="w-100 h-100 object-fit-cover">
+                    </div> -->
+                  </div>
+
+                  <!-- Stats Row -->
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <span class="badge me-2"
+                        style="background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: white; font-size: 10px; border-radius: 12px;">
+                        <i class="bi bi-fire me-1"></i>Hot
+                      </span>
+                      <small class="text-muted">Premium Partner</small>
+                    </div>
+                    <button mat-button class="btn btn-sm px-3"
+                      style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(102,126,234,0.3);" [routerLink]="['/home/products/vendor',vendor.vendorId]">
+                      View
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hover Effect Ring -->
+              <div
+                class="position-absolute top-50 start-50 translate-middle border border-white rounded-circle opacity-0"
+                style="width: 60px; height: 60px; transition: all 0.3s ease; pointer-events: none;"
+                onmouseover="this.style.opacity='0.3'; this.style.width='80px'; this.style.height='80px'"
+                onmouseout="this.style.opacity='0'; this.style.width='60px'; this.style.height='60px'"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- seller-banner -->
+    <section class="seller-cta-section py-5"
+      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
+      <div class="container position-relative">
+        <div class="row align-items-center">
+
+          <!-- Content Column -->
+          <div class="col-lg-6 text-white">
+            <h2 style="font-size: 2.5rem; line-height: 1.2;">
+              Become a
+              <span
+                style="background: linear-gradient(135deg, #ffd93d, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Seller</span>
+            </h2>
+
+            <p class="mb-4" style="font-size: 1rem; opacity: 0.9;">
+              Join our thriving marketplace and turn your passion into profit. Start selling today with zero upfront
+              costs.
+            </p>
+
+            <!-- Benefits -->
+            <div *ngFor="let benefit of benefits" class="d-flex align-items-start mb-3" style="gap: 1rem;">
+              <div class="rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 48px; height: 48px; background: linear-gradient(135deg, #ff6b6b, #ffd93d);">
+                <mat-icon style="color: white;">{{ benefit.icon }}</mat-icon>
+              </div>
+              <div>
+                <h6 class="mb-1" style="font-size: 1rem;">{{ benefit.title }}</h6>
+                <p class="mb-0" style="font-size: 0.875rem; opacity: 0.8;">{{ benefit.description }}</p>
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+              <button mat-flat-button color="warn" routerLink="/auth/register/vendor"
+                style="border-radius: 50px; padding: 0.75rem 2rem;">
+                <mat-icon>store</mat-icon>
+                Register as Seller
+              </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="row text-center mt-4">
+              <div class="col-4">
+                <h5 class="mb-1">10K+</h5>
+                <small style="opacity: 0.8;">Active Sellers</small>
+              </div>
+              <div class="col-4">
+                <h5 class="mb-1">$2M+</h5>
+                <small style="opacity: 0.8;">Monthly Sales</small>
+              </div>
+              <div class="col-4">
+                <h5 class="mb-1">98%</h5>
+                <small style="opacity: 0.8;">Success Rate</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Column -->
+          <div class="col-lg-6 mt-5 mt-lg-0 position-relative">
+            <div class="rounded-4 overflow-hidden shadow-lg" style="max-width: 100%; aspect-ratio: 4/3;">
+              <img src="assets/VendorImg.jpg" class="w-100 h-100 object-fit-cover" style="border-radius: 16px;"
+                alt="Seller Banner">
+              <span class="position-absolute top-0 end-0 m-2 badge bg-success d-flex align-items-center"
+                style="border-radius: 25px;">
+                <mat-icon style="font-size: 16px; margin-right: 4px;">trending_up</mat-icon>
+                +250% Growth
+              </span>
+              <span class="position-absolute bottom-0 start-0 m-2 badge bg-primary d-flex align-items-center"
+                style="border-radius: 25px;">
+                <mat-icon style="font-size: 16px; margin-right: 4px;">verified</mat-icon>
+                Verified Platform
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>

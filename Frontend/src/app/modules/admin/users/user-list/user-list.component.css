@@ -1,0 +1,221 @@
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Container */
+  .main-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .main-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 25px 25px 0 0;
+  }
+  
+  /* Header */
+  .page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .page-subtitle {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    font-weight: 400;
+  }
+  
+  /* Table Styling */
+  .table-container {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    /* padding: 1.5rem; */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+  }
+  
+  .modern-table {
+    margin: 0;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    background: white;
+  }
+  
+  .modern-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+  
+  .modern-table thead::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .modern-table thead th {
+    border: none;
+    padding: 1.2rem 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+  }
+  
+  .modern-table tbody tr {
+    transition: all 0.3s ease;
+  }
+  
+  .modern-table tbody tr:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modern-table tbody td {
+    padding: 1.2rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
+  }
+  
+  /* User Info */
+  .user-name {
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .user-name::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .user-email {
+    color: #6c757d;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+  }
+  
+  .user-address {
+    color: #495057;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Status Badges */
+  .status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .status-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+  }
+  
+  .status-badge:hover::before {
+    left: 100%;
+  }
+  
+  .status-active {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    color: white;
+    animation: pulse-green 2s infinite;
+  }
+  
+  .status-suspended {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    color: white;
+    animation: pulse-red 2s infinite;
+  }
+  
+  .status-pending {
+    background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+    color: white;
+    animation: pulse-yellow 2s infinite;
+  }
+  
+  /* Pulse Animations */
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3); }
+    50% { box-shadow: 0 6px 20px rgba(86, 171, 47, 0.5); }
+  }
+  
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3); }
+    50% { box-shadow: 0 6px 20px rgba(255, 65, 108, 0.5); }
+  }
+  
+  @keyframes pulse-yellow {
+    0%, 100% { box-shadow: 0 4px 15px rgba(247, 151, 30, 0.3); }
+    50% { box-shadow: 0 6px 20px rgba(247, 151, 30, 0.5); }
+  }
+  
+  /* Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  

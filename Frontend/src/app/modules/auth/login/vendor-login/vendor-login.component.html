@@ -1,0 +1,66 @@
+<!-- <p>vendor-login-form works!</p> -->
+<div class="container">
+    <div class="brand-header">
+        <img src="../../../../../assets/Logo2.png" class="brand-logo" alt="Logo">
+        <img src="../../../../../assets/Brand Name.png" class="brand-name" alt="Brand Name">
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-9">
+            <div class="vendor-login-card">
+                
+             
+                
+                <form [formGroup]="vendorLoginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="identifier" class="form-label">Phone Number or Email</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </div>
+                            <input type="text" id="identifier" class="form-control" formControlName="identifier" 
+                                   placeholder="Enter your phone or email" required>
+                        </div>
+                        <div class="alert alert-danger" *ngIf="vendorLoginForm.controls['identifier'].invalid &&
+                            (vendorLoginForm.controls['identifier'].dirty || vendorLoginForm.controls['identifier'].touched)">
+                            <div *ngIf="vendorLoginForm.controls['identifier'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-2"></i>This field is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cPassword" class="form-label">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </div>
+                            <input type="password" id="cPassword" class="form-control" formControlName="password" 
+                                   placeholder="Enter your password" required>
+                        </div>
+                        <div class="alert alert-danger" *ngIf="vendorLoginForm.controls['password'].invalid &&
+                            (vendorLoginForm.controls['password'].dirty || vendorLoginForm.controls['password'].touched)">
+                            <div *ngIf="vendorLoginForm.controls['password'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-2"></i>Password is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-vendor-submit" [disabled]="!vendorLoginForm.valid">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Access Vendor Portal
+                    </button>
+                </form>
+
+                <div class="signup-link">
+                    <p>New to our vendor program? 
+                        <a routerLink="/auth/register/vendor">Join as a vendor</a>
+                    </p>
+                </div>
+
+                <div class="error-message" *ngIf="errorMessage">
+                    <i class="bi bi-exclamation-triangle me-2"></i>{{errorMessage}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+
+    <div class="container-fluid my-4">
+        <!-- Statistics Cards -->
+        <div class="row g-4 fade-in">
+            <div class="col-md-4">
+                <div class="card stats-card border-primary">
+                    <div class="card-body">
+                        <i class="fas fa-users stat-icon text-primary"></i>
+                        <h5 class="card-title text-primary">
+                            <i class="fas fa-user-friends me-2"></i>Customer Metrics
+                        </h5>
+                        <div class="mb-3">
+                            <h3 class="stat-number text-success">{{customers.length}}</h3>
+                            <p class="stat-label">Total Customers</p>
+                        </div>
+                        <div>
+                            <h3 class="stat-number text-primary">{{vendors.length}}</h3>
+                            <p class="stat-label">Total Vendors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card top-vendors-card border-info">
+                    <div class="card-body">
+                        <i class="fas fa-crown stat-icon text-info"></i>
+                        <h5 class="card-title text-info text-center">
+                            <i class="fas fa-star me-2"></i>Top Performing Vendors
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item vendor-item" *ngFor="let vendor of topVendors; let i = index">
+                                <span class="vendor-rank">{{ i + 1 }}</span>
+                                <strong>{{ vendor.vendorName }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card stats-card border-warning">
+                    <div class="card-body">
+                        <i class="fas fa-shopping-cart stat-icon text-warning"></i>
+                        <h5 class="card-title text-warning">
+                            <i class="fas fa-chart-bar me-2"></i>Order Statistics
+                        </h5>
+                        <h3 class="stat-number text-dark pulse">{{orders.length}}</h3>
+                        <p class="stat-label">Total Orders (All Time)</p>
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Last updated: <span> {{ todayDate | date: 'mediumDate'}}</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="row mt-5">
+            <div class="col">
+                <div class="orders-section fade-in">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <h4>Comprehensive Order Report</h4>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><i class="fas fa-hashtag me-2"></i>SL No.</th>
+                                        <th><i class="fas fa-receipt me-2"></i>Order ID</th>
+                                        <th><i class="fas fa-user me-2"></i>Items</th>
+                                        <th><i class="fas fa-dollar-sign me-2"></i>Total Amount</th>
+                                        <th><i class="fas fa-flag me-2"></i>Status</th>
+                                        <th><i class="fas fa-calendar me-2"></i>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let order of orders; let i = index" class="fade-in">
+                                        <td>
+                                            <div class="sl-number">{{i+1}}</div>
+                                        </td>
+                                        <td>
+                                            <span class="order-id">{{order._id}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="customer-name">{{order.products.length}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="amount">{{order.totalAmount}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge"
+                                                [ngClass]="{'badge rounded-pill px-3 py-2 fs-6 text-white': true,'bg-success': order.status === 'Completed','bg-warning text-dark': order.status === 'Pending','bg-danger': order.status === 'Cancelled'}">
+                                                <i class="fas" [ngClass]="{
+                                                         'fa-check-circle': order.status === 'Completed',
+                                                         'fa-clock': order.status === 'Pending',
+                                                         'fa-times-circle': order.status === 'Cancelled'
+                                                       }"></i>
+                                                {{ order.status }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="order-date">{{order.orderDate | date: 'mediumDate'}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

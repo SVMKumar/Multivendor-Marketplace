@@ -1,0 +1,51 @@
+<!-- <p>admin-login-form works!</p> -->
+
+<div class="container">
+    <br>
+    <h1 class="text-center" style="margin-right: 25px;"><img src="../../../../../assets/Logo2.png" height="60px" width="60px" style="margin-bottom: 13px;">&nbsp;<img src="../../../../../assets/Brand Name.png" height="50px" width="200px" style="margin-bottom: -3px;"> </h1>  
+    <div class="row">
+        <div class="col-md-4 offset-4">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <h3 class="text text-center" style="font-family: sans-serif; font-size:24px;
+                    font-weight: bold; display:block;">Login</h3>
+                <!-- </div> -->
+        
+                <div class="card-body">
+                    <form [formGroup]="adminLoginForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="identifier">Phone number or email </label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                  <i class="bi bi-person-lines-fill"></i>
+                                </div>
+                            <input type="text" id="identifier" class="form-control" formControlName="identifier" required></div>
+                            <div class="alert alert-danger" *ngIf="adminLoginForm.controls['identifier'].invalid &&
+                                (adminLoginForm.controls['identifier'].dirty || adminLoginForm.controls['identifier'].touched)" >
+                                <div *ngIf="adminLoginForm.controls['identifier'].errors?.['required']">Field required</div>     
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                  <i class="bi bi-lock-fill"></i>
+                                </div>
+                            <input type="password" id="password" class="form-control" formControlName="password" required></div>
+                            <div class="alert alert-danger" *ngIf="adminLoginForm.controls['password'].invalid &&
+                                (adminLoginForm.controls['password'].dirty || adminLoginForm.controls['password'].touched)">
+                                <div *ngIf="adminLoginForm.controls['password'].errors?.['required']">Field required</div>
+                            </div>
+                        </div>
+                        <br>                        
+                        <button type="submit" class="btn btn-warning" [disabled]="!adminLoginForm.valid">Sign in</button>
+                    </form>
+                    <br>
+                    <div class="text text-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

@@ -1,0 +1,255 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid product-page">
+  <div class="row" style="padding-left: 15px; padding-right: 15px;">
+    <div class="col-md-4">
+      <div class="sticky-top pt-4">
+        <mat-card class="product-image-card p-3 text-center">
+          <img [src]="productDetails.imageUrl" [alt]="productDetails.name" class="img-fluid product-image"
+            style="max-height: 400px; object-fit: contain;" />
+        </mat-card>
+      </div>
+    </div>
+    <!-- LEFT: Static Image Section -->
+    <!-- <div class="col-md-4">
+      <div class="sticky-top pt-4">
+        <div class="product-image-wrapper">
+          <div class="image-card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="image-container">
+              <img [src]="productDetails.imageUrl" 
+                   [alt]="productDetails.name" 
+                   class="product-image" />
+              <div class="image-overlay">
+                <div class="zoom-indicator">
+                  <i class="bi bi-zoom-in"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div class="image-actions">
+              <button class="action-btn">
+                <i class="bi bi-heart"></i>
+              </button>
+              <button class="action-btn">
+                <i class="bi bi-share"></i>
+              </button>
+              <button class="action-btn">
+                <i class="bi bi-bookmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- RIGHT: Scrollable Content -->
+    <div class="col-md-8 content-section">
+      <div class="content-wrapper">
+        
+        <!-- Product Info Card -->
+        <div class="info-card shadow-sm border-0 rounded-4 mb-4">
+          <div class="card-body p-4">
+            
+            <!-- Product Header -->
+            <div class="product-header mb-4">
+              <h1 class="product-title mb-3">{{ productDetails.name }}</h1>
+              
+              <!-- Stock Status -->
+              <div class="stock-status mb-3" *ngIf="selectedVariant">
+                <span class="status-badge" 
+                      [ngClass]="selectedVariant.stock > 10 ? 'in-stock' : 'selling-fast'">
+                  <i class="bi" 
+                     [ngClass]="selectedVariant.stock > 10 ? 'bi-check-circle' : 'bi-lightning-charge'" 
+                     class="me-2"></i>
+                  {{ selectedVariant.stock > 10 ? 'In Stock' : 'Selling Fast' }}
+                </span>
+              </div>
+              
+
+              <!-- Rating Section -->
+              <div class="rating-section mb-4">
+                <div class="rating-display">
+                  <span class="rating-chip">
+                    <i class="bi bi-star-fill me-1"></i>
+                    {{ averageRating | number:'1.1-1' }}
+                  </span>
+                  <span class="rating-text">
+                    ({{ totalRatings }} ratings & {{ reviews.length }} reviews)
+                  </span>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+            </div>
+
+            <!-- Description Section -->
+            <div class="description-section mb-4">
+              <h3 class="section-title">
+                <i class="bi bi-info-circle me-2"></i>
+                Product Description
+              </h3>
+              <p class="description-text">{{ productDetails.description }}</p>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section mb-4">
+              <h3 class="section-title">
+                <i class="bi bi-check2-square me-2"></i>
+                Key Features
+              </h3>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feature-icon bg-success">
+                    <i class="bi bi-truck"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h6>Free Delivery</h6>
+                    <small>by Tomorrow</small>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-info">
+                    <i class="bi bi-arrow-repeat"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h6>Easy Returns</h6>
+                    <small>7 Days Replacement</small>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon bg-warning">
+                    <i class="bi bi-shield-check"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h6>Warranty</h6>
+                    <small>1 Year Coverage</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Variants Section -->
+            <p class="variant-header">Available Variants</p>
+            <div class="row g-3">
+              <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let variant of variantDetails"
+                (click)="variant.stock >= 1 && selectVariant(variant)"
+                [style.cursor]="variant.stock >= 1 ? 'pointer' : 'default'">
+                <mat-card class="variant-card border-secondary" [class.selected]="selectedVariant?._id === variant._id"
+                  [class.disabled]="variant.stock < 1"
+                  style="border-radius: 6px; padding: 12px; font-size: 0.85rem; min-height: auto;">
+                  <div class="variant-property mb-1">
+                    <strong>Color:</strong> {{ variant.color }}
+                  </div>
+                  <div class="variant-property mb-1">
+                    <strong>Size:</strong> {{ variant.size }}
+                  </div>
+                  <div class="variant-property mb-1">
+                    <strong>Stock:</strong> {{ variant.stock }}
+                  </div>
+                  <div class="price-section mt-2">
+                    <div class="current-price text-danger fw-semibold" style="font-size: 0.9rem;">
+                      ₹{{ variant.price }}
+                      <span class="original-price text-muted text-decoration-line-through" style="font-size: 0.8rem;">
+                        ₹{{ (variant.price * 1.25) | number:'1.0-0' }}
+                      </span>
+                    </div>
+                    <div class="tax-info text-success" style="font-size: 0.75rem;">
+                      Inclusive of all taxes
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="action-section">
+              <div class="action-buttons">
+                <button class="btn-primary-action" 
+                        [disabled]="!selectedVariant" 
+                        (click)="addToCart()">
+                  <i class="bi bi-cart-plus me-2"></i>
+                  <span>Add to Cart</span>
+                </button>
+                <button class="btn-secondary-action" 
+                        [disabled]="!selectedVariant" 
+                        (click)="buyNow()">
+                  <i class="bi bi-lightning-charge me-2"></i>
+                  <span>Buy Now</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews Section -->
+         <!-- Reviews Section -->
+      <mat-card class="product-info-card p-4 mb-4 reviews-section" *ngIf="reviews && reviews.length > 0">
+        <div class="rating-summary">
+          <div class="rating-overview">
+            <div class="average-rating">
+              <div class="rating-number">{{ averageRating | number:'1.1-1' }}</div>
+              <div class="rating-stars">
+                {{ '★'.repeat(Math.round(+averageRating)) + '☆'.repeat(5 - Math.round(+averageRating)) }}
+              </div>
+              <div class="rating-count">Based on {{ totalRatings }} reviews</div>
+            </div>
+            <div class="rating-breakdown">
+              <div class="rating-bar" *ngFor="let star of [5,4,3,2,1]">
+                <span class="rating-label">{{ star }} star{{ star > 1 ? 's' : '' }}</span>
+                <div class="progress-container">
+                  <div class="progress-fill"
+                    [style.width.%]="(ratingCountMap[star] / totalRatings) * 100 || 0"></div>
+                </div>
+                <span class="rating-percentage">
+                  {{ ((ratingCountMap[star] / totalRatings) * 100) | number:'1.0-0' || 0 }}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Individual Reviews -->
+        <div class="reviews-list">
+          <div class="review-item" *ngFor="let review of reviews | slice:0:visibleReviews">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar">{{ review.customerName.charAt(0).toUpperCase() }}</div>
+                <div class="reviewer-details">
+                  <h6>{{ review.customerName }}</h6>
+                  <span class="review-date">{{ review.createdAt }}</span>
+                </div>
+                <span class="verified-purchase">
+                  <i class="bi bi-check-circle me-1"></i>Verified Purchase
+                </span>
+              </div>
+              <div class="review-rating">
+                <span class="review-stars">
+                  {{ '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) }}
+                </span>
+              </div>
+            </div>
+            <span class="review-title"> {{ review.review }}</span>
+            <br><br>
+            <div class="review-actions">
+              <span class="review-action">
+                <i class="bi bi-hand-thumbs-up"></i>
+                <span>Helpful</span>
+              </span>
+              <span class="review-action">
+                <i class="bi bi-hand-thumbs-down"></i>
+                <span>Not Helpful</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load More Reviews Button -->
+        <button class="load-more-btn" *ngIf="visibleReviews < reviews.length" (click)="loadMoreReviews()">
+          <i class="bi bi-arrow-down me-2"></i>Load More Reviews
+        </button>
+      </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-product-list [hideNavbar]="true"></app-product-list>

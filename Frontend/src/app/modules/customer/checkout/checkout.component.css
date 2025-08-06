@@ -1,0 +1,51 @@
+
+.letter-spacing-1 {
+    letter-spacing: 0.5px;
+  }
+  
+  .product-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  }
+  
+  .card {
+    transition: all 0.3s ease;
+  }
+  
+  .badge {
+    font-weight: 500;
+  }
+  
+  .bg-success-subtle {
+    background-color: rgba(25, 135, 84, 0.1) !important;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 15px;
+    }
+    
+    .card-body {
+      padding: 1.5rem !important;
+    }
+    
+    .product-item {
+      padding: 1rem !important;
+    }
+  }
+  
+  /* Button hover effects */
+  .btn[style*="linear-gradient"]:hover .position-absolute {
+    opacity: 1 !important;
+  }
+  
+  /* Smooth animations */
+  * {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  

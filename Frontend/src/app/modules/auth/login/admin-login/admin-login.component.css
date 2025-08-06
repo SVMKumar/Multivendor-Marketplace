@@ -1,0 +1,18 @@
+.btn-warning{
+    border-radius: 20px;
+    width:100%
+}
+
+.alert-danger {
+    background-color: #f8d7da;    /* soft red background */
+    color: #721c24;               /* dark red text */
+    border: 1px solid #f5c6cb;
+    font-size: 14px;
+    padding: 8px 12px;
+    margin-top: 5px;
+    border-radius: 4px;
+  }
+  
+  .card{
+    padding-top: 15px;
+  }

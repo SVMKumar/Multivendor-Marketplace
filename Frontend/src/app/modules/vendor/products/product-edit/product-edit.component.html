@@ -1,0 +1,156 @@
+<app-navbar></app-navbar>
+
+<div class="form-page-container">
+  <!-- Header Section -->
+  <div class="container py-4">
+    <div class="text-center mb-4">
+      <div class="brand-container">
+        <img src="../../../../../assets/Logo2.png" alt="Logo" class="brand-logo">
+        <img src="../../../../../assets/Brand Name.png" alt="Brand Name" class="brand-name">
+      </div>
+      <!-- <h2 class="page-title mt-3 mb-1">Add New Product</h2>
+      <p class="page-subtitle text-muted">Create a new product listing for your store</p> -->
+    </div>
+
+    <!-- Form Container -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8 col-xl-7">
+        <div class="form-card shadow-lg">
+          <!-- <div class="card-header">
+            <h4 class="mb-0 fw-bold">Product Details</h4>
+            <p class="text-muted mb-0 small">Fill in the information below to create your product</p>
+          </div> -->
+          
+          <div class="card-body p-4">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+              
+              <!-- Image Upload Section -->
+              <div class="form-section mb-4">
+                <h5 class="section-title">Product Image</h5>
+                <div class="image-upload-container">
+                  <label for="fileUpload" class="image-upload-label">
+                    <div class="upload-area">
+                      <div class="upload-content">
+                        <div *ngIf="!uploadedImageUrl" class="upload-placeholder">
+                          <img src="../../../../../assets/img upload.png" alt="Upload" class="upload-icon">
+                          <div class="upload-text">
+                            <span class="upload-title">Upload Product Image</span>
+                            <span class="upload-subtitle">Click to browse or drag and drop</span>
+                          </div>
+                        </div>
+                        <div *ngIf="uploadedImageUrl" class="uploaded-image-container">
+                          <img [src]="uploadedImageUrl" alt="Uploaded Product" class="uploaded-image">
+                          <div class="image-overlay">
+                            <span class="change-text">Click to change</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </label>
+                  <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="image/*" hidden>
+                  <small class="form-text text-muted mt-2">Supported formats: JPG, PNG, GIF (Max 5MB)</small>
+                </div>
+              </div>
+
+              <!-- Basic Information -->
+              <div class="form-section mb-4">
+                <h5 class="section-title">Basic Information</h5>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <input id="name" formControlName="name" class="form-control" placeholder="Product Name">
+                      <label for="name">Product Name *</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <textarea id="description" formControlName="description" class="form-control" placeholder="Product Description" style="height: 100px;"></textarea>
+                      <label for="description">Product Description *</label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <select id="category" formControlName="category" class="form-select">
+                        <option value="">Select a category</option>
+                        <option value="Fashion">👗 Fashion</option>
+                        <option value="Electronics">📱 Electronics</option>
+                        <option value="Home Decors">🏠 Home Decors</option>
+                        <option value="Food & Health">🍎 Food & Health</option>
+                        <option value="Beauty">💄 Beauty</option>
+                        <option value="Mobiles">📞 Mobiles</option>
+                        <option value="Sports">⚽ Sports</option>
+                        <option value="Toys & Books">🧸 Toys & Books</option>
+                        <option value="Others">📦 Others</option>
+                      </select>
+                      <label for="category">Category *</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variants Section -->
+              <div class="form-section mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="section-title mb-0">Product Variants</h5>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="addVariant()">
+                    <i class="bi bi-plus-lg me-1"></i>Add Variant
+                  </button>
+                </div>
+                
+                <div formArrayName="variants" class="variants-container">
+                  <div *ngFor="let variant of variants.controls; let i = index" [formGroupName]="i" class="variant-card">
+                    <div class="variant-header">
+                      <h6 class="variant-title">Variant {{ i + 1 }}</h6>
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeVariant(i)" [disabled]="variants.length === 1">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                    
+                    <div class="row g-3">
+                      <div class="col-sm-6">
+                        <div class="form-floating">
+                          <input formControlName="color" class="form-control" placeholder="Color">
+                          <label>Color</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-6">
+                        <div class="form-floating">
+                          <input formControlName="size" class="form-control" placeholder="Size">
+                          <label>Size</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-6">
+                        <div class="form-floating">
+                          <input type="number" formControlName="price" class="form-control" placeholder="Price" min="0" step="0.01">
+                          <label>Price (₹)</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-6">
+                        <div class="form-floating">
+                          <input type="number" formControlName="stock" class="form-control" placeholder="Stock" min="0">
+                          <label>Stock Quantity</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="productForm.invalid">
+                  <i class="bi bi-check-lg me-2"></i>Create Product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

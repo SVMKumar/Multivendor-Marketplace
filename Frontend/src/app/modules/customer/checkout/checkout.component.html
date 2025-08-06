@@ -1,0 +1,279 @@
+<app-navbar></app-navbar>
+
+<div class="container my-5">
+  <!-- Order Summary Section -->
+  <div class="row justify-content-center" *ngIf="products && products.length > 0">
+    <div class="col-lg-8 col-xl-7">
+      <!-- Page Header -->
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark mb-2">
+          <i class="bi bi-cart-check text-success me-2"></i>
+          Checkout
+        </h2>
+        <p class="text-muted">Review your order before placing it</p>
+      </div>
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <!-- Enhanced Card Header -->
+        <div class="card-header bg-gradient text-white position-relative" 
+             style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 1.5rem;">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <h4 class="mb-1 fw-bold">
+                <i class="bi bi-bag-check me-2"></i>
+                Order Summary
+              </h4>
+              <small class="opacity-75">{{ products.length }} item(s) in your cart</small>
+            </div>
+            <div class="badge bg-light text-success fs-6 px-3 py-2 rounded-pill">
+              <i class="bi bi-shield-check me-1"></i>
+              Secure
+            </div>
+          </div>
+          <!-- Decorative elements -->
+          <div class="position-absolute top-0 end-0 opacity-25">
+            <i class="bi bi-bag" style="font-size: 4rem; transform: rotate(15deg);"></i>
+          </div>
+        </div>
+
+        <div class="card-body p-4">
+          <!-- Product List with Enhanced Styling -->
+          <div class="mb-4">
+            <h6 class="text-uppercase text-muted fw-semibold mb-3 letter-spacing-1">
+              <i class="bi bi-list-ul me-2"></i>Items in Cart
+            </h6>
+            
+            <div *ngFor="let product of products; let last = last" 
+                 class="product-item p-3 rounded-3 mb-3 border position-relative"
+                 style="background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%); border: 1px solid #e9ecef !important; transition: all 0.3s ease;">
+              
+              <div class="d-flex align-items-center justify-content-between">
+                <!-- Product Info -->
+                <div class="d-flex align-items-center flex-grow-1">
+                  <div class="product-image-wrapper me-3 position-relative">
+                    <img [src]="product.imageUrl" 
+                         alt="{{product.name}}" 
+                         class="img-thumbnail border-0 shadow-sm" 
+                         style="width: 65px; height: 65px; object-fit: contain; border-radius: 12px;">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" 
+                          style="font-size: 0.7rem;">
+                      {{ product.quantity }}
+                    </span>
+                  </div>
+                  
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-semibold text-dark">{{ product.name }}</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-1">
+                      <span class="badge bg-light text-dark border">
+                        <i class="bi bi-palette me-1"></i>{{ product.color }}
+                      </span>
+                      <span class="badge bg-light text-dark border">
+                        <i class="bi bi-arrows-fullscreen me-1"></i>{{ product.size }}
+                      </span>
+                      <span class="badge bg-light text-dark border">
+                        <i class="bi bi-box me-1"></i>Qty: {{ product.quantity }}
+                      </span>
+                    </div>
+                    <small class="text-muted">₹{{ product.price }} each</small>
+                  </div>
+                </div>
+
+                <!-- Price -->
+                <div class="text-end">
+                  <div class="fw-bold text-success fs-5">
+                    ₹{{ product.quantity * product.price }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enhanced Pricing Summary -->
+          <div class="pricing-summary">
+            <h6 class="text-uppercase text-muted fw-semibold mb-3 letter-spacing-1">
+              <i class="bi bi-calculator me-2"></i>Price Details
+            </h6>
+            
+            <div class="bg-light rounded-3 p-3">
+              <div class="row mb-2">
+                <div class="col-8">
+                  <span class="text-dark">Subtotal ({{ products.length }} items)</span>
+                </div>
+                <div class="col-4 text-end">
+                  <span class="fw-semibold">₹{{ getSubtotal() }}</span>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <div class="col-8">
+                  <span class="text-success">
+                    <i class="bi bi-percent me-1"></i>Discount (10%)
+                  </span>
+                </div>
+                <div class="col-4 text-end">
+                  <span class="text-success fw-semibold">-₹{{ getDiscount().toFixed(2) }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-8">
+                  <span class="text-dark">
+                    <i class="bi bi-truck me-1"></i>Delivery Charges
+                  </span>
+                </div>
+                <div class="col-4 text-end">
+                  <span class="fw-semibold" [class]="shippingCharges === 0 ? 'text-success' : 'text-dark'">
+                    {{ shippingCharges === 0 ? 'FREE' : '₹' + shippingCharges }}
+                  </span>
+                </div>
+              </div>
+
+              <hr class="my-3">
+
+              <!-- Total Amount -->
+              <div class="row">
+                <div class="col-8">
+                  <h5 class="mb-0 fw-bold text-dark">Total Amount</h5>
+                </div>
+                <div class="col-4 text-end">
+                  <h4 class="mb-0 fw-bold text-success">₹{{ getTotalPrice() }}</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Savings Badge -->
+            <div class="text-center mt-3" *ngIf="getDiscount() > 0">
+              <span class="badge bg-success-subtle text-success fs-6 px-3 py-2 rounded-pill">
+                <i class="bi bi-piggy-bank me-1"></i>
+                You saved ₹{{ getDiscount().toFixed(2) }} on this order!
+              </span>
+            </div>
+          </div>
+
+          <!-- Enhanced Place Order Button -->
+          <div class="mt-4 d-grid gap-2">
+            <button class="btn btn-lg py-3 fw-bold text-white position-relative overflow-hidden" 
+                    (click)="placeOrder()"
+                    style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+              <span class="position-relative z-1">
+                <i class="bi bi-credit-card me-2"></i>
+                Place Order - ₹{{ getTotalPrice() }}
+              </span>
+              <!-- Button hover effect -->
+              <div class="position-absolute top-0 start-0 w-100 h-100 opacity-0" 
+                   style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); transition: opacity 0.3s ease;"></div>
+            </button>
+            
+            <!-- Security Note -->
+            <div class="text-center mt-2">
+              <small class="text-muted">
+                <i class="bi bi-shield-lock-fill text-success me-1"></i>
+                Your payment information is secure and encrypted
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information Cards -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="card border-0 text-center h-100" style="background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);">
+            <div class="card-body py-3">
+              <i class="bi bi-truck text-success fs-3 mb-2"></i>
+              <h6 class="fw-semibold mb-1">Free Delivery</h6>
+              <small class="text-muted">On orders above ₹500</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 text-center h-100" style="background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);">
+            <div class="card-body py-3">
+              <i class="bi bi-arrow-clockwise text-success fs-3 mb-2"></i>
+              <h6 class="fw-semibold mb-1">Easy Returns</h6>
+              <small class="text-muted">30 days return policy</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 text-center h-100" style="background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);">
+            <div class="card-body py-3">
+              <i class="bi bi-headset text-success fs-3 mb-2"></i>
+              <h6 class="fw-semibold mb-1">24/7 Support</h6>
+              <small class="text-muted">Always here to help</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enhanced Empty Cart Section -->
+  <div class="row justify-content-center text-center py-5" *ngIf="products && products.length === 0">
+    <div class="col-md-8 col-lg-6">
+      <div class="card border-0 shadow-lg rounded-4 p-4" 
+           style="background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);">
+        <div class="card-body">
+          <!-- Animated Empty Cart Icon -->
+          <div class="mb-4 position-relative">
+            <img src="../../../../assets/Cart_GIF.gif" 
+                 alt="Empty Cart" 
+                 class="img-fluid mb-3" 
+                 style="max-width: 200px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+          </div>
+          
+          <h2 class="mb-3 fw-bold text-dark">Your cart is empty!</h2>
+          <p class="text-muted mb-4 fs-5">
+            Looks like you haven't added anything to your cart yet.<br>
+            <small>Explore our amazing products and start shopping!</small>
+          </p>
+          
+          <!-- Enhanced Shop Now Button -->
+          <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-lg px-5 py-3 fw-bold text-white me-md-2 mb-2 mb-md-0" 
+                    routerLink="/home/products"
+                    style="background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%); border: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);">
+              <i class="bi bi-shop me-2"></i>
+              Start Shopping
+            </button>
+            <button class="btn btn-outline-secondary btn-lg px-4 py-3" 
+                    routerLink="/home"
+                    style="border-radius: 12px; transition: all 0.3s ease;">
+              <i class="bi bi-house me-2"></i>
+              Back to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enhanced Toast Notification -->
+<div class="position-fixed top-0 end-0 p-4" style="z-index: 1050;">
+  <div class="toast align-items-center border-0 shadow-lg" 
+       role="alert" 
+       [class.show]="showToast" 
+       [class.hide]="!showToast"
+       aria-live="assertive" 
+       aria-atomic="true" 
+       style="min-width: 350px; border-radius: 12px; backdrop-filter: blur(10px);"
+       [ngClass]="danger ? 'bg-danger text-white' : 'bg-success text-white'">
+    <div class="d-flex align-items-center p-3">
+      <div class="me-3">
+        <i class="bi" 
+           [class]="danger ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'" 
+           style="font-size: 1.5rem;"></i>
+      </div>
+      <div class="toast-body fw-semibold flex-grow-1" style="font-size: 1rem;">
+        {{ responseMessage }}
+      </div>
+      <button type="button" 
+              class="btn-close btn-close-white ms-2" 
+              (click)="hideToast()"
+              aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,56 @@
+
+
+<div class="parent">
+    <!-- Navbar placeholder -->
+    <app-navbar></app-navbar>
+  
+    <div class="container mt-5">
+      <!-- Products Grid -->
+      <div class="row" *ngIf="products.length > 0">
+        <div class="col-12 col-sm-6 col-lg-3 mb-4 fade-in" *ngFor="let product of products; let i = index"
+          [style.--i]="i">
+          <div class="card product-card d-flex flex-column align-items-center text-center p-4">
+            <div class="image-container mb-3">
+              <img [src]="product.imageUrl" class="product-img" alt="{{ product.name }}" loading="lazy">
+            </div>
+  
+            <h5 class="card-title OverCls">{{ product.name }}</h5>
+  
+            <p class="description-text">{{ product.description }}</p>
+  
+            <div class="variant-badge">
+              <i class="bi bi-collection me-1"></i>
+              {{ product.variants.length }} Variant{{ product.variants.length !== 1 ? 's' : '' }}
+            </div>
+  
+            <button class="btn remove-btn mt-auto w-100" (click)="removeItem(product)">
+              <i class="bi bi-trash me-2"></i>
+              <span>Remove Product</span>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Empty State -->
+      <div class="row justify-content-center" *ngIf="products.length === 0">
+        <div class="col-12 col-lg-8">
+          <div class="empty-state">
+            <div class="mb-4">
+              <i class="bi bi-box-seam" style="font-size: 4rem; color: #667eea; opacity: 0.7;"></i>
+            </div>
+            <h1 class="mb-4">Ready to showcase your products?</h1>
+            <p class="lead text-muted mb-4">
+              Start building your catalog by adding your first product.
+              Create compelling listings that attract customers and grow your business.
+            </p>
+            <button class="btn add-products-btn col-12 col-sm-6 col-md-4"
+              [routerLink]="['/vendor/product-add', vendorId]">
+              <i class="bi bi-plus-circle me-2"></i>
+              Add Your First Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

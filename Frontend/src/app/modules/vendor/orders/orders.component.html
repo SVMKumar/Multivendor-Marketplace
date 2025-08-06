@@ -1,0 +1,92 @@
+
+<div class="parent">
+    <app-navbar></app-navbar>
+    
+    <!-- Page Header -->
+    <!-- <div class="page-header">
+        <div class="container text-center">
+            <h2><i class="fas fa-clock me-3"></i>Pending Orders</h2>
+            <p class="page-subtitle">Manage your pending order requests</p>
+        </div>
+    </div> -->
+
+    <div class="container orders-container">
+      <!-- Orders Count Badge -->
+      <div class="text-center mb-4" *ngIf="orders && orders.length > 0">
+        <span class="order-badge pulse">
+          <i class="fas fa-shopping-cart me-2"></i>
+          {{ ordersLength }} Pending {{ ordersLength === 1 ? 'Order' : 'Orders' }}
+        </span>
+      </div>
+    
+      <!-- Orders Grid -->
+      <div class="row g-4" *ngIf="orders && orders.length > 0">
+        <ng-container *ngFor="let order of orders; let i = index">
+          <ng-container *ngFor="let product of order.products">
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+              <div class="card product-card d-flex flex-column align-items-center text-center p-4 fade-in"
+                   [style.animation-delay]="i * 0.1 + 's'">
+                
+                <!-- Card Header -->
+                <div class="card-header w-100">
+                  <div class="order-status">
+                    <i class="fas fa-hourglass-half me-1"></i>
+                    Pending
+                  </div>
+                </div>
+    
+                <!-- Product Image -->
+                <div class="image-container mb-3">
+                  <img [src]="product.imageUrl" class="product-img" [alt]="product.name"/>
+                </div>
+    
+                <!-- Order Title -->
+                <h5 class="card-title OverCls">
+                  {{ product.name }}
+                </h5>
+                Amount: {{ product.price * product.quantity | currency: 'INR' }}
+    
+                
+    
+                <!-- Order Meta Info -->
+                <div class="order-meta w-100">
+                  <span>
+                    <i class="fas fa-map-marker-alt me-1"></i>
+                    <span class="order-address">{{ order.deliveryAddress }}</span>
+                  </span>
+                  <span>
+                    <i class="fas fa-calendar-alt me-1"></i>
+                    {{ order.orderDate | date:'mediumDate' }}
+                  </span>
+                </div>
+    
+                <!-- Action Button -->
+                <div class="mt-auto">
+                  <button class="btn btn-view"
+                          (click)="cancelOrder(order._id, product.variantId)">
+                    <i class="fas fa-times me-2"></i>
+                    Cancel Order
+                  </button>
+                  &nbsp;
+                  <button class="btn btn-cancel"
+                          (click)="completeOrder(order._id, product.variantId)">
+                    <i class="fas fa-check me-2"></i>
+                    Complete Order
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!orders || orders.length === 0">
+        <div class="empty-icon">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <h3 class="empty-title">No Pending Orders</h3>
+        <p class="empty-subtitle">You don't have any pending orders at the moment.</p>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+
+.vendor-offcanvas {
+    font-size: 0.9rem;
+  }
+  
+  .vendor-offcanvas .info-item {
+    padding: 0.5rem 0;
+  }
+  
+  .vendor-offcanvas .info-item:hover {
+    background-color: rgba(0,0,0,0.02);
+    border-radius: 0.375rem;
+    margin: 0 -0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .vendor-offcanvas h6 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .vendor-offcanvas .btn {
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 576px) {
+    .vendor-offcanvas {
+      font-size: 0.85rem;
+    }
+  }

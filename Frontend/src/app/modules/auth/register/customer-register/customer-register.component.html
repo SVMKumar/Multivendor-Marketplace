@@ -1,0 +1,174 @@
+<br>
+<div class="container">
+    <div class="brand-header">
+        <img src="../../../../../assets/Logo2.png" class="brand-logo" alt="Logo">
+        <img src="../../../../../assets/Brand Name.png" class="brand-name" alt="Brand Name">
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="registration-card">
+                <h3 class="card-title">Create Account</h3>
+
+                <form [formGroup]="custRegistrationForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="cName" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <input type="text" id="cName" class="form-control" formControlName="name"
+                                placeholder="Enter your full name">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['name'].invalid &&
+                                (custRegistrationForm.controls['name'].dirty || custRegistrationForm.controls['name'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['name'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                            <div *ngIf="custRegistrationForm.controls['name'].errors?.['pattern']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Name must be at least 3 characters long and
+                                contain only alphabets.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cPhone" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <input type="text" id="cPhone" class="form-control" formControlName="phone"
+                                placeholder="Enter your phone number">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['phone'].invalid &&
+                                (custRegistrationForm.controls['phone'].dirty || custRegistrationForm.controls['phone'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['phone'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                            <div *ngIf="custRegistrationForm.controls['phone'].errors?.['pattern']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Phone number should consist of 10 digits
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cEmail" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <input type="email" id="cEmail" class="form-control" formControlName="email"
+                                placeholder="Enter your email address">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['email'].invalid &&
+                                (custRegistrationForm.controls['email'].dirty || custRegistrationForm.controls['email'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['email'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                            <div *ngIf="custRegistrationForm.controls['email'].errors?.['pattern']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Please enter a valid email address
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cDob" class="form-label">Date of Birth</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-calendar-date-fill"></i>
+                            </div>
+                            <input type="date" id="cDob" class="form-control" formControlName="dob">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['dob'].invalid &&
+                                (custRegistrationForm.controls['dob'].dirty || custRegistrationForm.controls['dob'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['dob'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                            <div *ngIf="custRegistrationForm.controls['dob'].errors?.['dateInvalid']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Date of birth can't be today or a future
+                                date
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cAddress" class="form-label">Address</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <textarea id="cAddress" class="form-control" formControlName="address"
+                                placeholder="Enter your complete address"></textarea>
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['address'].invalid &&
+                                (custRegistrationForm.controls['address'].dirty || custRegistrationForm.controls['address'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['address'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cPassword" class="form-label">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </div>
+                            <input type="password" id="cPassword" class="form-control" formControlName="password"
+                                placeholder="Create a strong password">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.controls['password'].invalid &&
+                                (custRegistrationForm.controls['password'].dirty || custRegistrationForm.controls['password'].touched)">
+                            <div *ngIf="custRegistrationForm.controls['password'].errors?.['required']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Field required
+                            </div>
+                            <div *ngIf="custRegistrationForm.controls['password'].errors?.['minlength']">
+                                <i class="bi bi-exclamation-circle me-1"></i>Password should consist of minimum 8
+                                characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </div>
+                            <input type="password" id="confirmPassword" class="form-control"
+                                formControlName="confirmPassword" placeholder="Confirm your password">
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="custRegistrationForm.errors?.['mismatch'] && custRegistrationForm.controls['confirmPassword'].touched">
+                            <i class="bi bi-exclamation-circle me-1"></i>Passwords do not match
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit" [disabled]="!custRegistrationForm.valid">
+                        <i class="bi bi-person-plus me-2"></i>Create Account
+                    </button>
+                </form>
+
+                <div class="signin-link">
+                    <p class="mb-0">Already have an account?
+                        <a [routerLink]="['/auth/login/customer']">Sign in here</a>
+                    </p>
+                </div>
+
+                <div class="message-container text-success" *ngIf="successMessage">
+                    <i class="bi bi-check-circle me-2"></i>{{successMessage}}
+                </div>
+                <div class="message-container text-danger" *ngIf="errorMessage">
+                    <i class="bi bi-exclamation-triangle me-2"></i>{{errorMessage}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

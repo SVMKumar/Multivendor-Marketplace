@@ -1,0 +1,164 @@
+.modal-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    background: #f8f9fa;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* Enhanced form styling for modal */
+.form-control {
+    transition: all 0.2s ease;
+    border-radius: 0.375rem;
+}
+
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.15);
+}
+
+.form-control:hover:not(:focus):not([readonly]) {
+    border-color: var(--bs-primary);
+}
+
+.form-control[readonly] {
+    background-color: #f8f9fa !important;
+    border-color: #dee2e6;
+}
+
+/* Button enhancements */
+.btn-primary {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #0056b3 100%);
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+}
+
+.btn-primary:disabled {
+    background: #6c757d;
+    border-color: #6c757d;
+    opacity: 0.7;
+}
+
+.btn-outline-secondary {
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-1px);
+}
+
+/* Input group styling */
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    transition: all 0.2s ease;
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: var(--bs-primary);
+    background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+/* Validation feedback */
+.invalid-feedback,
+.valid-feedback {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.form-control.is-valid,
+.form-control.is-invalid {
+    animation: validationPulse 0.3s ease;
+}
+
+@keyframes validationPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.01);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Section dividers */
+.text-uppercase {
+    letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .col-sm-6 {
+        margin-bottom: 1rem;
+    }
+
+    .d-flex.gap-2 {
+        flex-direction: column;
+    }
+
+    .btn.flex-fill {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Accessibility improvements */
+.btn:focus {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+.form-control:focus {
+    outline: none;
+}
+
+/* Loading state (optional) */
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

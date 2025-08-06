@@ -1,0 +1,125 @@
+<br>
+<section class="categories-section py-5"
+  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden; margin: 0; border-radius: 20px;">
+  <!-- Animated Background Elements -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="opacity: 0.08;">
+    <div class="position-absolute animate-float"
+      style="top: 15%; left: 5%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%); border-radius: 50%; animation: float 6s ease-in-out infinite;">
+    </div>
+    <div class="position-absolute animate-float-delayed"
+      style="top: 70%; right: 10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%); border-radius: 50%; animation: float 8s ease-in-out infinite reverse;">
+    </div>
+    <div class="position-absolute animate-pulse"
+      style="top: 40%; left: 80%; width: 80px; height: 80px; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); border-radius: 50%; animation: pulse 5s ease-in-out infinite;">
+    </div>
+  </div>
+
+  <div class="container position-relative">
+    <!-- Enhanced Header -->
+    <div class="text-center mb-5">
+      <!-- <div class="d-inline-block mb-3">
+        <span class="badge px-4 py-2 fw-semibold" style="background: rgba(255,255,255,0.15); color: white; border-radius: 50px; font-size: 14px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+          🛍️ Shop by Category
+        </span>
+      </div> -->
+      <h2 class="fw-bold text-white mb-3"
+        style="font-family: 'Inter', sans-serif; font-size: 2.5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        Explore
+        <span
+          style="background: linear-gradient(135deg, #ffd93d, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          Categories
+        </span>
+      </h2>
+      <p class="text-white mb-4" style="opacity: 0.9; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+        Discover amazing products across our diverse range of categories
+      </p>
+      <div class="mx-auto"
+        style="width: 80px; height: 4px; background: linear-gradient(90deg, #ff6b6b, #ffd93d); border-radius: 2px; box-shadow: 0 2px 10px rgba(255,107,107,0.4);">
+      </div>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="row justify-content-center g-4">
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2" *ngFor="let category of topCategories | slice:0:6; let i = index">
+        <a [routerLink]="['/home/products', category.category]" class="text-decoration-none category-link">
+          <div class="category-card text-center position-relative"
+            style="transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation-delay: {{ i * 0.1 }}s;"
+            onmouseover="this.style.transform='translateY(-15px) scale(1.05)'; this.querySelector('.category-circle').style.boxShadow='0 20px 40px rgba(0,0,0,0.2)'"
+            onmouseout="this.style.transform='translateY(0) scale(1)'; this.querySelector('.category-circle').style.boxShadow='0 10px 30px rgba(0,0,0,0.1)'">
+
+            <!-- Category Circle -->
+            <div class="category-circle rounded-circle overflow-hidden mx-auto mb-3 position-relative"
+              style="height: 150px; width: 150px; background: linear-gradient(135deg, #ffffff, #f8f9fa); box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.4s ease; border: 3px solid rgba(255,255,255,0.3);">
+
+              <!-- Category Image -->
+              <div class="w-100 h-100 position-relative overflow-hidden">
+                <div class="category-image w-100 h-100"
+                  style="background-image: url({{category.imageUrl}}); background-size: cover; background-position: center; background-repeat: no-repeat; transition: transform 0.4s ease;"
+                  onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+
+                <!-- Gradient Overlay -->
+                <div class="position-absolute top-0 start-0 w-100 h-100"
+                  style="background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); opacity: 0; transition: opacity 0.3s ease;"
+                  onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                </div>
+              </div>
+
+              <!-- Hover Ring Animation -->
+              <div
+                class="position-absolute top-50 start-50 translate-middle border border-white rounded-circle opacity-0"
+                style="width: 60px; height: 60px; transition: all 0.3s ease; pointer-events: none;"
+                onmouseover="this.style.opacity='0.5'; this.style.width='80px'; this.style.height='80px'"
+                onmouseout="this.style.opacity='0'; this.style.width='60px'; this.style.height='60px'">
+              </div>
+
+              <!-- Category Icon Overlay (Optional) -->
+              <!-- <div class="position-absolute bottom-0 end-0 translate-middle-x" style="transform: translateX(50%) translateY(-10px);">
+                <div class="badge rounded-circle p-2" 
+                     style="background: linear-gradient(135deg, #ff6b6b, #ffd93d); width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,107,107,0.3);">
+                  <i class="bi bi-arrow-right text-white" style="font-size: 14px;"></i>
+                </div>
+              </div> -->
+            </div>
+
+            <!-- Category Name -->
+            <div class="category-info">
+              <h3 class="category-name text-white fw-bold mb-2"
+                style="font-family: 'Inter', sans-serif; font-size: 1.1rem; transition: all 0.3s ease; text-shadow: 0 2px 10px rgba(0,0,0,0.3);"
+                onmouseover="this.style.color='#ffd93d'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.color='white'; this.style.transform='scale(1)'">
+                {{ category.category }}
+              </h3>
+
+              <!-- Category Stats (Optional) -->
+              <!-- <div class="category-stats">
+                <small class="text-white" style="opacity: 0.7; font-size: 0.85rem;">
+                  Shop Now
+                </small>
+              </div> -->
+            </div>
+
+            <!-- Shimmer Effect -->
+            <div class="position-absolute top-0 start-0 w-100 h-100 rounded-circle overflow-hidden"
+              style="pointer-events: none;">
+              <div class="shimmer-effect position-absolute top-0 start-0 w-100 h-100"
+                style="background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s ease;">
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- View All Categories Button -->
+    <!-- <div class="text-center mt-5">
+      <button class="btn btn-lg px-5 py-3 fw-semibold text-uppercase" 
+              style="background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; backdrop-filter: blur(10px); transition: all 0.3s ease; letter-spacing: 1px;"
+              onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.borderColor='rgba(255,255,255,0.5)'; this.style.transform='translateY(-3px)'"
+              onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='rgba(255,255,255,0.3)'; this.style.transform='translateY(0)'">
+        <i class="bi bi-grid-3x3-gap me-2"></i>
+        View All Categories
+      </button>
+    </div> -->
+  </div>
+</section>

@@ -1,0 +1,201 @@
+<nav class="navbar navbar-expand-lg navbar-custom shadow-lg">
+    <div class="container-fluid">
+  
+      <!-- Brand Logo -->
+      <a class="navbar-brand d-flex align-items-center" style="cursor: pointer;" (click)="redirectToHome()">
+        <div class="logo-icon" style="margin-right: 8px;">
+          <img src="../../../../assets/Logo2.png" alt="Logo" style="height: 30px; width: auto;">
+        </div>
+        <span class="fw-bold">
+          <span class="brand-buzz" style="color: rgb(245, 168, 0);">Buzz</span><span class="brand-buy">Buy</span>
+        </span>
+      </a>
+  
+  
+      <!-- Mobile Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Navbar Items -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+  
+        <!-- Centered Search Bar (for guest or customer) -->
+        <div class="d-flex justify-content-center flex-grow-1" *ngIf="role === 'customer' || !role">
+          <div class="search-container">
+            <form class="search-input-group" role="search" (ngSubmit)="search()" [formGroup]="searchForm">
+              <mat-icon class="search-icon">search</mat-icon>
+              <input type="search" class="search-input" placeholder="Search for amazing products..." aria-label="Search"
+                formControlName="identifier">
+              <button class="search-btn" type="submit">
+                <mat-icon style="font-size: 18px;">search</mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Guest Links -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center" *ngIf="!role">
+          <!-- Login -->
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/auth/login/customer">
+              <mat-icon>person</mat-icon>
+              <span>Login</span>
+            </a>
+          </li>
+  
+          <!-- Be a Seller -->
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/auth/register/vendor">
+              <mat-icon>storefront</mat-icon>
+              <span>Be a Seller</span>
+            </a>
+          </li>
+  
+          <!-- Cart -->
+          <li class="nav-item">
+            <a class="nav-link position-relative d-flex align-items-center" routerLink="/customer/cart">
+              <mat-icon>shopping_cart</mat-icon>
+              <span>Cart</span>
+              <span class="cart-badge">0</span>
+            </a>
+          </li>
+        </ul>
+  
+        <!-- Customer Links -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center" *ngIf="role === 'customer'">
+          <li class="nav-item">
+            <a class="nav-link position-relative" routerLink="/home/cart">
+              <mat-icon>shopping_cart</mat-icon>
+              <span>Cart</span>
+              <span class="cart-badge">{{cartSize}}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link d-flex align-items-center gap-2">
+              <small>Welcome, </small>
+              <span class="welcome-text">{{ name.split(' ')[0] }}</span>
+              <img src="../../../../assets/user.png" alt="Profile" class="profile-img" style="cursor: pointer;"
+                data-bs-toggle="offcanvas" data-bs-target="#customerOffcanvas" aria-controls="customerOffcanvas" />
+            </span>
+          </li>
+        </ul>
+  
+        <!-- Vendor Links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center vendor-nav" *ngIf="role === 'vendor'">
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/vendor/product-list">
+              <!-- <mat-icon>inventory_2</mat-icon> -->
+              <span>Listings</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/vendor/orders">
+              <!-- <mat-icon>receipt_long</mat-icon> -->
+              <span>Orders</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/vendor/payments">
+              <!-- <mat-icon>payment</mat-icon> -->
+              <span>Payment Methods</span>
+            </a>
+          </li>
+        </ul>
+  
+        <!-- Vendor Profile -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center" *ngIf="role === 'vendor'">
+          <li class="nav-item">
+            <span class="nav-link d-flex align-items-center gap-2 ms-4">
+              <span class="welcome-text">Welcome, {{ name.split(' ')[0] }}</span>
+              <img src="../../../../assets/user.png" alt="Profile" class="profile-img" style="cursor: pointer;"
+                data-bs-toggle="offcanvas" data-bs-target="#vendorOffcanvas" aria-controls="vendorOffcanvas" />
+            </span>
+          </li>
+        </ul>
+  
+        <!-- Admin Links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center admin-nav" *ngIf="role === 'admin'">
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/admin/orders">
+              <!-- <mat-icon>assignment</mat-icon> -->
+              <span>Orders</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" routerLink="/admin/vendor-approval">
+              <!-- <mat-icon>pending_actions</mat-icon> -->
+              <span>Pending Vendors</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/admin/user', 'vendors']">
+              <!-- <mat-icon>store</mat-icon> -->
+              <span>Vendors</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/admin/user', 'customers']">
+              <!-- <mat-icon>group</mat-icon> -->
+              <span>Customers</span>
+            </a>
+          </li>
+        </ul>
+  
+        <!-- Admin Profile -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center" *ngIf="role === 'admin'">
+          <li class="nav-item">
+            <span class="nav-link d-flex align-items-center gap-2 ms-4">
+              <span class="welcome-text">Welcome, Admin</span>
+              <img src="../../../../assets/user.png" alt="Profile" class="profile-img" style="cursor: pointer;"
+                data-bs-toggle="offcanvas" data-bs-target="#vendorOffcanvas" aria-controls="vendorOffcanvas" />
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Keep your existing offcanvas and modal code unchanged -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="customerOffcanvas" aria-labelledby="customerOffcanvasLabel"
+    *ngIf="role === 'customer'">
+    <div class="offcanvas-header justify-content-center position-relative p-2">
+      <!-- <h1 class="offcanvas-title w-100 text-center mb-1 fw-bold text-dark"
+        style="font-size: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+        My Profile
+      </h1> -->
+      <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-0">
+      <app-customer-layout></app-customer-layout>
+    </div>
+  </div>
+  
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="vendorOffcanvas" aria-labelledby="customerOffcanvasLabel"
+    *ngIf="role === 'vendor'">
+    <div class="offcanvas-header justify-content-center position-relative p-2">
+      <!-- <h1 class="offcanvas-title w-100 text-center mb-1 fw-bold text-dark"
+        style="font-size: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">
+        My Profile
+      </h1> -->
+  
+      <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-0">
+      <app-vendor-layout></app-vendor-layout>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <app-edit-profile [editableUser]="editableUser" (save)="onSave($event)">
+          </app-edit-profile>
+        </div>
+      </div>
+    </div>
+  </div>

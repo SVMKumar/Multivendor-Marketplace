@@ -1,0 +1,173 @@
+<div class="offcanvas-profile-page h-100 d-flex flex-column">
+  
+    <!-- Header Section -->
+    <div class="profile-header text-center py-4 px-3">
+      <div class="profile-avatar-container mb-3">
+        <div class="profile-avatar">
+          <img src="assets/user.png" alt="User Avatar" class="avatar-image" />
+          <div class="avatar-overlay">
+            <i class="bi bi-camera text-white"></i>
+          </div>
+        </div>
+        <div class="online-indicator"></div>
+      </div>
+      
+      <div class="user-info">
+        <h4 class="user-name mb-1">{{ user.name }}</h4>
+        <p class="user-email text-muted mb-2">{{ user.email }}</p>
+        <span class="member-badge">
+          <i class="bi bi-star-fill me-1"></i>
+          Member since {{ user.joinedOn | date: 'MMM yyyy' }}
+        </span>
+      </div>
+    </div>
+  
+    <!-- Quick Stats -->
+    <div class="quick-stats px-3 mb-3">
+      <div class="row g-2">
+        <div class="col-6">
+          <div class="stat-card">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Orders</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">In Cart</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="profile-content flex-grow-1 px-3">
+      
+      <!-- Personal Information Section -->
+      <div class="info-section mb-4">
+        <h6 class="section-title">
+          <i class="bi bi-person-circle me-2"></i>Personal Information
+        </h6>
+        <div class="info-list">
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bi bi-telephone"></i>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Phone</span>
+              <span class="info-value">{{ user.phone }}</span>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="bi bi-geo-alt"></i>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Address</span>
+              <span class="info-value">{{ user.address }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Quick Actions Section -->
+      <div class="actions-section mb-4">
+        <h6 class="section-title">
+          <i class="bi bi-lightning me-2"></i>Quick Actions
+        </h6>
+        <div class="action-buttons">
+          <button class="action-btn" (click)="goToOrders()">
+            <div class="action-icon bg-primary">
+              <i class="bi bi-bag-check text-white"></i>
+            </div>
+            <div class="action-content">
+              <span class="action-title">My Orders</span>
+              <span class="action-subtitle">Track your purchases</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </button>
+          
+          <button class="action-btn" [routerLink]="['/home/cart']" (click)="closeModal()">
+            <div class="action-icon bg-success">
+              <i class="bi bi-cart3 text-white"></i>
+            </div>
+            <div class="action-content">
+              <span class="action-title">My Cart</span>
+              <span class="action-subtitle">Review items</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </button>
+          
+          <!-- <button class="action-btn">
+            <div class="action-icon bg-info">
+              <i class="bi bi-heart text-white"></i>
+            </div>
+            <div class="action-content">
+              <span class="action-title">Wishlist</span>
+              <span class="action-subtitle">Saved items</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </button> -->
+          <a href="#support" style="text-decoration: none;">
+          <button class="action-btn">
+            <div class="action-icon bg-warning">
+              <i class="bi bi-headset text-white"></i>
+            </div>
+            <div class="action-content">
+              <span class="action-title">Support</span>
+              <span class="action-subtitle">Get help</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </button>
+        </a>
+        </div>
+      </div>
+  
+      <!-- Settings Section -->
+      <div class="settings-section mb-4">
+        <h6 class="section-title">
+          <i class="bi bi-gear me-2"></i>Settings
+        </h6>
+        <div class="settings-list">
+          <div class="setting-item">
+            <div class="setting-content">
+              <i class="bi bi-bell me-3 text-muted"></i>
+              <span>Notifications</span>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" checked>
+            </div>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-content">
+              <i class="bi bi-shield-check me-3 text-muted"></i>
+              <span>Privacy</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-content">
+              <i class="bi bi-question-circle me-3 text-muted"></i>
+              <span>Help & FAQ</span>
+            </div>
+            <i class="bi bi-chevron-right text-muted"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bottom Actions -->
+    <div class="bottom-actions p-3 border-top">
+      <div class="d-grid gap-2">
+        <button class="btn btn-outline-primary btn-lg" (click)="editProfile()">
+          <i class="bi bi-pencil-square me-2"></i>Edit Profile
+        </button>
+        <button class="btn btn-outline-danger btn-lg" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-2"></i>Sign Out
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <!-- Vendors Table -->
+  <div class="row" *ngIf="vendors.length > 0">
+    <div class="col-12">
+      <div class="table-container fade-in">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="page-header">
+            <!-- <h2 class="page-title">
+                <i class="bi bi-people-fill"></i>
+                Vendor Applications
+            </h2> -->
+        </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-primary btn-sm me-2" onclick="refreshTable()">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <span class="badge bg-secondary">{{ vendors.length }} items</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><i class="fas fa-user me-2"></i>Vendor Details</th>
+                <th><i class="fas fa-store me-2"></i>Store Name</th>
+                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                <th><i class="fas fa-flag me-2"></i>Status</th>
+                <th><i class="fas fa-cogs me-2"></i>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vendor of vendors; let i = index" class="fade-in">
+                <td>
+                  <div class="vendor-info">
+                    <!-- <div class="vendor-avatar">
+                        {{ getInitials(vendor.name) }}
+                      </div> -->
+                    <div class="vendor-details">
+                      <h6>{{ vendor.name }}</h6>
+                      <small class="text-muted">ID: #{{ vendor._id.slice(-6) }}</small>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <strong>{{ vendor.storeName }}</strong>
+                </td>
+                <td>
+                  <a href="mailto:{{ vendor.email }}" class="text-decoration-none">
+                    {{ vendor.email }}
+                  </a>
+                </td>
+                <td>
+                  <span class="status-badge" [ngClass]="{
+                                                    'status-pending': vendor.status === 'Pending',
+                                                    'status-approved': vendor.status === 'Approved',
+                                                    'status-rejected': vendor.status === 'Rejected'
+                                                  }">
+                    <i class="fas" [ngClass]="{
+                                                     'fa-clock': vendor.status === 'Pending',
+                                                     'fa-check': vendor.status === 'Approved',
+                                                     'fa-times': vendor.status === 'Rejected'
+                                                   }"></i>
+                    {{ vendor.status }}
+                  </span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn btn-custom btn-approve" (click)="approveVendor(vendor._id)"
+                      [disabled]="vendor.status !== 'Pending'" [id]="'approve-' + i">
+                      <div class="loading-spinner" [id]="'spinner-approve-' + i"></div>
+                      <i class="fas fa-check me-1"></i>
+                      Approve
+                    </button>
+                    <button class="btn btn-custom btn-reject" (click)="rejectVendor(vendor._id)"
+                      [disabled]="vendor.status !== 'Pending'" [id]="'reject-' + i">
+                      <div class="loading-spinner" [id]="'spinner-reject-' + i"></div>
+                      <i class="fas fa-times me-1"></i>
+                      Reject
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="row" *ngIf="vendors.length === 0">
+    <div class="col-12">
+      <div class="empty-state fade-in">
+        <div class="empty-icon">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <h1 class="empty-title">No Pending Vendors</h1>
+        <p class="empty-subtitle">All vendor applications have been processed. Check back later for new submissions.
+        </p>
+        <button class="btn btn-home" routerLink="/admin/dashboard">
+          <i class="fas fa-home me-2"></i>
+          Return to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

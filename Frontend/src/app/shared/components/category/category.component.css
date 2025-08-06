@@ -1,0 +1,192 @@
+
+
+  /* Core Animations */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Category Card Animations */
+  .category-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .category-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .category-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .category-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .category-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .category-card:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .category-card:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+
+  /* Shimmer Effect */
+  .category-card:hover .shimmer-effect {
+    transform: translateX(100%) !important;
+  }
+
+  /* 3D Hover Effects */
+  .category-circle {
+    transform-style: preserve-3d;
+  }
+
+  .category-card:hover .category-circle {
+    transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .category-circle {
+      height: 120px !important;
+      width: 120px !important;
+    }
+
+    .category-name {
+      font-size: 1rem !important;
+    }
+
+    section h2 {
+      font-size: 2rem !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .category-circle {
+      height: 100px !important;
+      width: 100px !important;
+    }
+
+    .category-name {
+      font-size: 0.9rem !important;
+    }
+
+    .col-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    section h2 {
+      font-size: 1.8rem !important;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .category-circle {
+      height: 80px !important;
+      width: 80px !important;
+    }
+
+    .category-name {
+      font-size: 0.8rem !important;
+    }
+
+    .container {
+      padding: 0 15px;
+    }
+  }
+
+  /* Link Hover States */
+  .category-link:hover .category-name {
+    color: #ffd93d !important;
+  }
+
+  .category-link:focus {
+    outline: none;
+  }
+
+  .category-link:focus .category-circle {
+    box-shadow: 0 0 0 3px rgba(255, 217, 61, 0.5) !important;
+  }
+
+  /* Loading States */
+  .category-image {
+    background-color: #f8f9fa;
+    position: relative;
+  }
+
+  .category-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: loading-shimmer 1.5s infinite;
+  }
+
+  @keyframes loading-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Accessibility Improvements */
+  .category-card:focus-within {
+    outline: 2px solid #ffd93d;
+    outline-offset: 4px;
+  }
+
+  /* Performance Optimizations */
+  .category-card {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .category-image {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
